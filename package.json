@@ -1,7 +1,7 @@
 {
   "name": "marc-record-js",
   "version": "0.0.1",
-  "main": "MarcRecord.js",
+  "main": "lib/MarcRecord.js",
   "description": "",
   "scripts": {
     "test": "grunt test"
