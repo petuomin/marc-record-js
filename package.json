@@ -4,7 +4,7 @@
   "main": "lib/MarcRecord.js",
   "description": "",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt"
   },
   "author": "Pasi Tuominen <pasi.tuominen@gmail.com>",
   "license": "MIT",
