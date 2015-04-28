@@ -145,6 +145,106 @@ describe('Record', function() {
 		});
 	});
 
+	describe('getControlfields', function() {
+
+
+		it('should return controlfields and only controlfields', function() {
+
+
+			var rec = new Record();
+			rec.appendControlField(['001', '98234240']);
+			rec.appendControlField(['008', 'field008']);
+
+			rec.appendField(['500', '0', '', 'a', 'Note']);
+
+			expect(rec.getControlfields()).length.to.be(2);
+			
+		});
+
+
+	});
+
+	describe('getDatafields', function() {
+
+		it('should return only datafields', function() {
+
+
+			var rec = new Record();
+			rec.appendControlField(['001', '98234240']);
+			rec.appendControlField(['008', 'field008']);
+
+			rec.appendField(['500', '0', '', 'a', 'Note']);
+
+			expect(rec.getDatafields()).length.to.be(1);
+			
+		});
+
+	});
+
+	describe('insertField', function() {
+
+		it('should insert field into the correct location', function() {
+
+			var rec = new Record();
+			rec.appendControlField(['001', '98234240']);
+			rec.appendControlField(['008', 'field008']);
+
+			rec.appendField(['500', '0', '', 'a', 'Note']);
+			rec.insertField(['245', '0', '', 'a', 'Note']);
+
+			expect(rec.fields.map(toTag).join()).to.equal(["001","008","245","500"].join());
+
+		});
+
+		function toTag(field) {
+			return field.tag;
+		}
+
+	});
+
+	describe('insertField', function() {
+
+		it('should append field into the end if its the correct location', function() {
+
+			var rec = new Record();
+			rec.appendControlField(['001', '98234240']);
+			rec.appendControlField(['008', 'field008']);
+
+			rec.appendField(['500', '0', '', 'a', 'Note']);
+			rec.insertField(['600', '0', '', 'a', 'Note']);
+
+			expect(rec.fields.map(toTag).join()).to.equal(["001","008","500","600"].join());
+
+		});
+
+		function toTag(field) {
+			return field.tag;
+		}
+
+	});
+
+	describe('insertControlField', function() {
+
+		it('should insert controlfield into the correct location', function() {
+
+			var rec = new Record();
+			rec.appendControlField(['001', '98234240']);
+			rec.appendControlField(['008', 'field008']);
+
+			rec.appendField(['500', '0', '', 'a', 'Note']);
+			rec.insertControlField(['005', 'timestamp']);
+
+			expect(rec.fields.map(toTag).join()).to.equal(["001","005", "008","500"].join());
+
+		});
+
+		function toTag(field) {
+			return field.tag;
+		}
+
+	});
+
+
 	describe('toString', function() {
 		it('should generate human readable MARC string', function() {
 
