@@ -303,4 +303,22 @@ describe('Record', function() {
 
 		});
 	});
+
+	describe('toJsonObject', function() {
+		it('should generate a plain JSON-serializable object', function() {
+
+			var testDataObject = {
+				leader: 'leader',
+				fields: [{
+					tag: '001',
+					value: '28474'
+				}]
+			};
+		        var json_str = '{"leader":"leader","fields":[{"tag":"001","value":"28474"}]}'
+			var rec = new Record( testDataObject );
+
+		        expect(JSON.stringify(rec.toJsonObject())).to.equal(json_str);
+		});
+	});
+
 });
