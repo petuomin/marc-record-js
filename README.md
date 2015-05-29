@@ -1,5 +1,7 @@
 # marc-record-js
 
+[![Build Status](https://travis-ci.org/petuomin/marc-record-js.svg?branch=master)](https://travis-ci.org/petuomin/marc-record-js)
+
 MARC record implementation in javascript
 
 ## Installation
