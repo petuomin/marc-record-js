@@ -1,6 +1,8 @@
 # marc-record-js
 
 [![Build Status](https://travis-ci.org/petuomin/marc-record-js.svg?branch=master)](https://travis-ci.org/petuomin/marc-record-js)
+[![Code Climate](https://codeclimate.com/github/petuomin/marc-record-js/badges/gpa.svg)](https://codeclimate.com/github/petuomin/marc-record-js)
+[![Test Coverage](https://codeclimate.com/github/petuomin/marc-record-js/badges/coverage.svg)](https://codeclimate.com/github/petuomin/marc-record-js/coverage)
 
 MARC record implementation in javascript
 
