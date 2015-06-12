@@ -264,9 +264,9 @@ describe('Record', function() {
 			var compareRec = [
 				"LDR    leader",
 				"001    28474",
-				"100 __ ‡aTest Author",
-				"245 0_ ‡aTest Title",
-				"500 #_ ‡aNote",
+				"100    ‡aTest Author",
+				"245 0  ‡aTest Title",
+				"500 #  ‡aNote",
 			].join("\n");
 
 			expect(rec.toString()).to.equal(compareRec);
@@ -291,9 +291,9 @@ describe('Record', function() {
 			var stringRep = [
 				"LDR    leader",
 				"001    28474",
-				"100 __ ‡aTest Author",
-				"245 0_ ‡aTest Title",
-				"500 #_ ‡aNote‡bSecond subfield",
+				"100    ‡aTest Author",
+				"245 0  ‡aTest Title",
+				"500 #  ‡aNote‡bSecond subfield",
 			].join("\n");
 
 
