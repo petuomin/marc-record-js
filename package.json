@@ -19,5 +19,9 @@
     "eslint": "^3.8.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
+  },
+  "repository": { 
+    "type": "git",
+    "url": "https://github.com/petuomin/marc-record-js.git"
   }
 }
