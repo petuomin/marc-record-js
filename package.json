@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run coverage && npm run enforce-coverage",
     "test:unit": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha",
-    "test:unit:watch": "npm run test:unit -- -w",
+    "test:unit:watch": "mocha -w",
     "lint": "eslint --ext .js .",
     "coverage": "npm run test:unit --coverage",
     "enforce-coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100 --line 100"

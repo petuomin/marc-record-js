@@ -362,6 +362,43 @@ describe('Record', function() {
     it('returns false if any subfield is not matching', function() {
       expect(record.containsFieldWithValue('245', 'b', 'Test field', 'c', 'not-matching')).to.equal(false);
     });
+  });
+
+  describe('getFields', function() {
+    var record = Record.fromString([
+      'LDR    leader',
+      '001    28474',
+      '003    aaabbb',
+      '100    ‡aTest Author',
+      '245    ‡aSome content‡bTest field',
+      '245    ‡aTest Title‡bTest field‡cTest content',
+      'STA    ‡aDELETED'
+    ].join('\n'));
+
+    it('returns array of fields that match the given tag', function() {
+      expect(record.getFields('245')).to.eql([
+        mkField('245', [['a', 'Some content'], ['b', 'Test field']]),
+        mkField('245', [['a', 'Test Title'], ['b', 'Test field'], ['c', 'Test content']]),
+      ]);
+    });
+    it('returns array of fields that match the given tag and any subfield by code and value', function() {
+
+      expect(record.getFields('245', 'b', 'Test field')).to.eql([
+        mkField('245', [['a', 'Some content'], ['b', 'Test field']]),
+        mkField('245', [['a', 'Test Title'], ['b', 'Test field'], ['c', 'Test content']])
+      ]);
+    });
+    it('returns array of fields that match only the given tag and any subfield by code and value', function() {
+      expect(record.getFields('245', 'c', 'Test content')).to.eql([
+        mkField('245', [['a', 'Test Title'], ['b', 'Test field'], ['c', 'Test content']]),
+      ]);
+    });
+    it('returns an empty array when no tags match', function() {
+      expect(record.getFields('246')).to.eql([]);
+    });
+    it('returns array of matching control fields', function() {
+      expect(record.getFields('003', 'aaabbb')).to.eql([{tag: '003', value:'aaabbb'}]);
+    });
 
   });
 
@@ -431,3 +468,13 @@ describe('Record', function() {
     });
   });
 });
+
+function mkField(tag, subfields) {
+  var field = { ind1: ' ', ind2:' ' };
+  field.tag = tag;
+
+  field.subfields = subfields.map(function(pair) {
+    return {code: pair[0], value: pair[1]};
+  });
+  return field;
+}
