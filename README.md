@@ -93,6 +93,17 @@ var deepClonedRecord = new Record(myRecord.fields);
 
 ```
 
+Check if record contains a data field with specific value
+```
+record.containsFieldWithValue('245', 'b', 'Test field', 'c', 'Test content')
+```
+
+Check if record contains a control field with specific value
+```
+record.containsFieldWithValue('003', 'some value')
+```
+
+
 
 ## See also
 
