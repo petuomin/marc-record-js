@@ -1,20 +1,22 @@
 {
   "name": "marc-record-js",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "lib/MarcRecord.js",
   "description": "MARC record implementation in javascript",
   "scripts": {
-    "test": "grunt"
+    "test": "npm run lint && npm run coverage && npm run enforce-coverage",
+    "test:unit": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha",
+    "test:unit:watch": "npm run test:unit -- -w",
+    "lint": "eslint --ext .js .",
+    "coverage": "npm run test:unit --coverage",
+    "enforce-coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100 --line 100"
   },
   "author": "Pasi Tuominen <pasi.tuominen@gmail.com>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-mocha-istanbul": "^5.0.2",
-    "grunt-mocha-test": "^0.13.2",
+    "eslint": "^3.8.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   }

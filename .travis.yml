@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - "node"
-  - "iojs"
 before_install: npm install -g grunt-cli codeclimate-test-reporter
 addons:
   code_climate:
