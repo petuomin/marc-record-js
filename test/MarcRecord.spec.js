@@ -436,10 +436,10 @@ describe('Record', function() {
       });
     });
 
-    describe('for a record that contains d in leader/07', function() {
+    describe('for a record that contains d in leader/05 (6th character)', function() {
       beforeEach(function() {
         record = Record.fromString([
-          'LDR    abcdefd',
+          'LDR    abcdedghijk',
           '001    28474',
           '100    ‡aTest Author',
           '245 0  ‡aTest Title'
@@ -454,7 +454,7 @@ describe('Record', function() {
     describe('for a record that is not deleted', function() {
       beforeEach(function() {
         record = Record.fromString([
-          'LDR    leader',
+          'LDR    lead',
           '001    28474',
           '100    ‡aTest Author',
           '245 0  ‡aTest Title',
