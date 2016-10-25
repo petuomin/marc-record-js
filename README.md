@@ -73,7 +73,7 @@ myRecord.appendField({
 
 // or using array as a parameter
 // Format is [tag,ind1,ind2,sub1code,sub1value,sub2code,sub2value,...subNcode,subNvalue]
-myRecord.insertControlField(["245","","", "a","The title of the book'","b","Some author"]});
+myRecord.insertField(["245","","", "a","The title of the book'","b","Some author"]});
 
 
 // get array of controlfields
@@ -90,13 +90,14 @@ myRecord.fields
 
 var deepClonedRecord = new Record(myRecord.fields);
 
-
 ```
+
 
 Check if record contains a data field with specific value
 ```
 record.containsFieldWithValue('245', 'b', 'Test field', 'c', 'Test content')
 ```
+
 
 Check if record contains a control field with specific value
 ```
