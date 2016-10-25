@@ -16,11 +16,7 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
-    "grunt": "^1.0.1",
     "eslint": "^3.8.1",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-mocha-istanbul": "^5.0.2",
-    "grunt-mocha-test": "^0.13.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   }
