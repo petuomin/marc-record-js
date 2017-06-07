@@ -543,6 +543,26 @@ describe('Record', function() {
 
     });
 
+
+    it('should return false if records have differing amount of data fields', function() {
+
+      var record1 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author',
+        '245    ‡aTest Title'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+
+    });
+
     it('should return false if records have differing indicators', function() {
 
       var record1 = Record.fromString([
