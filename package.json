@@ -1,6 +1,6 @@
 {
   "name": "marc-record-js",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "lib/MarcRecord.js",
   "description": "MARC record implementation in javascript",
   "scripts": {

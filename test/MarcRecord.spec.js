@@ -467,6 +467,177 @@ describe('Record', function() {
       });
     });
   });
+
+  describe('equalsTo', function() {
+    
+    it('should return true when record is compared to itself', function() {
+      var recordString = [
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n');
+
+      var record = Record.fromString(recordString);
+      
+      expect(record.equalsTo(record)).to.be.true;
+    });
+  
+    it('should return true if records are equal', function() {
+      var recordString = [
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n');
+
+      var record1 = Record.fromString(recordString);
+      var record2 = Record.fromString(recordString);
+
+      expect(record1.equalsTo(record2)).to.be.true;
+    });
+    
+  });
+
+  describe('isEqual', function() {
+
+    it('should return true when record is compared to itself', function() {
+      var recordString = [
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n');
+
+      var record = Record.fromString(recordString);
+      
+      expect(Record.isEqual(record, record)).to.be.true;
+    });
+  
+    it('should return true if records are equal', function() {
+      var recordString = [
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n');
+
+      var record1 = Record.fromString(recordString);
+      var record2 = Record.fromString(recordString);
+
+      expect(Record.isEqual(record1, record2)).to.be.true;
+
+    });
+    
+    it('should return false if records have differing data fields', function() {
+
+      var record1 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author‡cExtra-content'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+
+    });
+
+
+    it('should return false if records have differing amount of data fields', function() {
+
+      var record1 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author',
+        '245    ‡aTest Title'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+
+    });
+
+    it('should return false if records have differing indicators', function() {
+
+      var record1 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100 2  ‡aTest Author'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+
+    });
+    
+    it('should return false if records have differing control fields', function() {
+
+      var record1 = Record.fromString([
+        'LDR    lead',
+        '001    284333',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+
+    });
+
+    it('should return false if records have differing leaders', function() {
+      var record1 = Record.fromString([
+        'LDR    leader1',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      var record2 = Record.fromString([
+        'LDR    leader2',
+        '001    28474',
+        '100    ‡aTest Author'
+      ].join('\n'));
+
+      expect(Record.isEqual(record1, record2)).to.be.false;
+    });
+    
+  });
+
+  describe('clone', function() {
+    var record;
+    beforeEach(function() {
+      record = Record.fromString([
+        'LDR    lead',
+        '001    28474',
+        '100    ‡aTest Author',
+        '245 0  ‡aTest Title',
+        '500 #  ‡aNote‡bSecond subfield'
+      ].join('\n'));
+    });
+
+    it('should make a deep copy of the record', function() {
+      var cloneOfRecord = Record.clone(record);
+
+      expect(cloneOfRecord.equalsTo(record)).to.be.true;
+      expect(cloneOfRecord.fields !== record.fields);
+
+    });
+
+  });
 });
 
 function mkField(tag, subfields) {
