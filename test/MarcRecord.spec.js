@@ -14,7 +14,7 @@ describe('Record', function() {
     it('should append control fields to the record', function() {
       rec.appendControlField({tag: '008', value: 'testvalue'});
       expect(rec.get('008')).length.to.be(1);
-      
+
       expect(rec.get('008')[0].tag).to.equal('008');
       expect(rec.get('008')[0].value).to.equal('testvalue');
 
@@ -24,7 +24,7 @@ describe('Record', function() {
       rec.appendControlField(['001', '002312312']);
 
       expect(rec.get('001')).length.to.be(1);
-      
+
       expect(rec.get('001')[0].value).to.equal('002312312');
 
     });
@@ -35,7 +35,7 @@ describe('Record', function() {
       }
 
       expect( tryAppendingDatafieldDataUsingControlfieldFunction ).to.throw(Error);
-    
+
     });
 
     it('should throw error if the tag is not a string type', function() {
@@ -49,34 +49,34 @@ describe('Record', function() {
     });
 
   });
-  
+
   describe('appendField', function() {
 
     var rec = new Record();
 
     it('should append data fields to the record', function() {
       rec.appendField({
-        tag: '100', 
-        ind1: ' ', 
-        ind2: ' ', 
-        subfields: [ 
-          {code:'a', value: 'Test Author'} 
-        ] 
+        tag: '100',
+        ind1: ' ',
+        ind2: ' ',
+        subfields: [
+          {code:'a', value: 'Test Author'}
+        ]
       });
 
 
       expect(rec.get('100')).length.to.be(1);
-      
+
       expect(rec.get('100')[0].tag).to.equal('100');
       expect(rec.get('100')[0].subfields[0].value).to.equal('Test Author');
 
     });
-    
+
     it('should append data fields to the record in array format', function() {
       rec.appendField(['245', '0', '', 'a', 'Test Title']);
 
       expect(rec.get('245')).length.to.be(1);
-      
+
       expect(rec.get('245')[0].tag).to.equal('245');
       expect(rec.get('245')[0].ind1).to.equal('0');
       expect(rec.get('245')[0].subfields[0].value).to.equal('Test Title');
@@ -89,7 +89,7 @@ describe('Record', function() {
       }
 
       expect( tryAppendingControlfieldDataUsingDatafieldFunction ).to.throw(Error);
-    
+
     });
 
     it('should throw error if the tag is not a string type', function() {
@@ -122,6 +122,18 @@ describe('Record', function() {
 
     });
 
+  });
+
+  describe('removeField', function() {
+    it('Should remove a field from the record', function() {
+      var recordObject = {
+        fields: [{ tag: '001', value: 'foo'}, {tag: '005', value: 'bar'}]
+      };
+      var record = new Record(JSON.parse(JSON.stringify(recordObject)));
+
+      record.removeField(record.fields[1]);
+      expect(record.get()).to.eql([{tag: '001', value: 'foo'}]);
+    });
   });
 
   describe('constructor', function() {
@@ -158,7 +170,7 @@ describe('Record', function() {
       rec.appendField(['500', '0', '', 'a', 'Note']);
 
       expect(rec.getControlfields()).length.to.be(2);
-      
+
     });
 
 
@@ -176,7 +188,7 @@ describe('Record', function() {
       rec.appendField(['500', '0', '', 'a', 'Note']);
 
       expect(rec.getDatafields()).length.to.be(1);
-      
+
     });
 
   });
@@ -256,7 +268,7 @@ describe('Record', function() {
         }]
       };
       var rec = new Record( testDataObject );
-      
+
       rec.appendField(['100', undefined, '', 'a', 'Test Author']);
       rec.appendField(['245', '0', null, 'a', 'Test Title']);
       rec.appendField(['500', '#', '', 'a', 'Note']);
@@ -283,7 +295,7 @@ describe('Record', function() {
         }]
       };
       var rec = new Record( testDataObject );
-      
+
       rec.appendField(['100', undefined, '', 'a', 'Test Author']);
       rec.appendField(['245', '0', null, 'a', 'Test Title']);
       rec.appendField(['500', '#', '', 'a', 'Note', 'b', 'Second subfield']);
@@ -354,7 +366,7 @@ describe('Record', function() {
 
     it('returns true if all subfields are matching in array form', function() {
       expect(record.containsFieldWithValue('245', [
-        {code: 'b', value:'Test field' }, 
+        {code: 'b', value:'Test field' },
         {code: 'c', value: 'Test content'}
       ])).to.equal(true);
     });
@@ -419,7 +431,7 @@ describe('Record', function() {
         expect(record.isDeleted()).to.equal(true);
       });
     });
-    
+
     describe('for a record that contains DEL $a Y', function() {
       beforeEach(function() {
         record = Record.fromString([
@@ -469,7 +481,7 @@ describe('Record', function() {
   });
 
   describe('equalsTo', function() {
-    
+
     it('should return true when record is compared to itself', function() {
       var recordString = [
         'LDR    lead',
@@ -478,10 +490,10 @@ describe('Record', function() {
       ].join('\n');
 
       var record = Record.fromString(recordString);
-      
+
       expect(record.equalsTo(record)).to.be.true;
     });
-  
+
     it('should return true if records are equal', function() {
       var recordString = [
         'LDR    lead',
@@ -494,7 +506,7 @@ describe('Record', function() {
 
       expect(record1.equalsTo(record2)).to.be.true;
     });
-    
+
   });
 
   describe('isEqual', function() {
@@ -507,10 +519,10 @@ describe('Record', function() {
       ].join('\n');
 
       var record = Record.fromString(recordString);
-      
+
       expect(Record.isEqual(record, record)).to.be.true;
     });
-  
+
     it('should return true if records are equal', function() {
       var recordString = [
         'LDR    lead',
@@ -524,7 +536,7 @@ describe('Record', function() {
       expect(Record.isEqual(record1, record2)).to.be.true;
 
     });
-    
+
     it('should return false if records have differing data fields', function() {
 
       var record1 = Record.fromString([
@@ -580,7 +592,7 @@ describe('Record', function() {
       expect(Record.isEqual(record1, record2)).to.be.false;
 
     });
-    
+
     it('should return false if records have differing control fields', function() {
 
       var record1 = Record.fromString([
@@ -614,7 +626,7 @@ describe('Record', function() {
 
       expect(Record.isEqual(record1, record2)).to.be.false;
     });
-    
+
   });
 
   describe('clone', function() {
