@@ -136,6 +136,23 @@ describe('Record', function() {
     });
   });
 
+  describe('removeSubfield', function() {
+    it('Should remove a subfield from the record', function() {
+      var recordObject = {
+        fields: [{tag: '245', subfields: [
+          {code: 'a', value: 'foo'}, {code: 'b', value: 'bar'}
+        ]}]
+      };
+      var record = new Record(JSON.parse(JSON.stringify(recordObject)));
+
+      record.removeSubfield(record.fields[0].subfields[1], record.fields[0]);
+      expect(record.get()).to.eql([{
+        tag: '245',
+        subfields: [{code: 'a', value: 'foo'}]
+      }]);
+    });
+  });
+
   describe('constructor', function() {
 
     it('should make a deep copy of the argument object', function() {
